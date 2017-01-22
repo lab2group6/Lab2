@@ -23,11 +23,25 @@ class Welcome extends Application
 		$authors = array ();
 		foreach ($source as $record)
 		{
-			$authors[] = array ('who' => $record['who'], 'mug' => $record['mug'], 'href' => $record['where']);
+			$authors[] = array ('who' => $record['who'], 'mug' => $record['mug'], 'href' => $record['where'], 'what' => $record['what']);
 		}
 		$this->data['authors'] = $authors;
 
 		$this->render();
 	}
+	
+	public function random()
+	{
+		$this->data['pagebody'] = 'homepage';
 
+		//random number generated between 1-7
+		$randNum = rand(1,7);
+
+		//Get specific author from randNum and utilize get command
+		$source = array($this->quotes->get($randNum));
+		$this->data['authors'] = $source;
+
+		$this->render();
+	
+	}
 }
